@@ -15,7 +15,7 @@ const App = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.get('http://localhost:3000/api/recommend'{
+      const response = await axios.get('http://localhost:3000/api/recommend',{
         params: {
           budget,
           fuelType,
@@ -88,10 +88,10 @@ const App = () => {
               <div key ={car.id} className='car-card'>
                 <img src={car.image} alt={car.name} className='car-image' />
                 <h4>{car.name}</h4>
-                <p>Price: ${car.price}</p>
+                <p>Price: ${car.price.toLocaleString()}</p>
                 <p>Fuel Type: {car.fuelType}</p>
-                <p>Family Size: {car.familySize}</p>
-                <p>Usage Type: {car.usageType}</p>
+                <p>Family Size: {car.seatingCapacity}</p>
+                <p>Usage Type: {car.usage}</p>
                 <p>Mileage: {car.mileage}</p>
                 <p>Safety: {car.safetyRatings}</p>
               </div>
