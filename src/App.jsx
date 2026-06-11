@@ -10,6 +10,7 @@ const App = () => {
   const [usageType, setUsageType] = useState('City');
 
   const [recommendations, setRecommendations] = useState([]);
+  const [searched, setSearched] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const App = () => {
         }
       });
       setRecommendations(response.data);
+      setSearched(true);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
     }
@@ -80,6 +82,12 @@ const App = () => {
 
           <button type='submit' className='submit-btn'>Get Recommendations</button>
         </form>
+
+        {
+          searched && recommendations.length === 0 && (
+            <p className='no-results'>No cars found matching your criteria. Please adjust your preferences and try again.</p>
+          )
+        }
 
         {recommendations.length > 0 && (
           <div className='recommendations'>
