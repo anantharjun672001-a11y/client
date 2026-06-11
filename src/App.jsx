@@ -20,7 +20,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/recommend",
+        "https://server-nbyp.onrender.com/api/recommend",
         {
           params: {
             budget,
