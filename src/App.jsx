@@ -11,11 +11,18 @@ const App = () => {
 
   const [recommendations, setRecommendations] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
-      const response = await axios.get('http://localhost:3000/api/recommend');
+      const response = await axios.get('http://localhost:3000/api/recommend'{
+        params: {
+          budget,
+          fuelType,
+          familySize,
+          usageType
+        }
+      });
       setRecommendations(response.data);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
