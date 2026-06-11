@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import './App.css';
 
 const App = () => {
   const [budget, setBudget] = useState('');
   const [fuelType, setFuelType] = useState('Petrol');
   const [familySize, setFamilySize] = useState("4");
   const [usageType, setUsageType] = useState('City');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would typically send the data to your backend or AI model for processing
+    console.log('User Preferences:', { budget, fuelType, familySize, usageType });
+    alert('Recommendations will be generated based on your preferences!');
+  }
 
   return (
     <div className='container'>
