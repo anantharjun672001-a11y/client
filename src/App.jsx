@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import axios from 'axios';
+
 
 const App = () => {
   const [budget, setBudget] = useState('');
@@ -7,11 +9,17 @@ const App = () => {
   const [familySize, setFamilySize] = useState("4");
   const [usageType, setUsageType] = useState('City');
 
+  const [recommendations, setRecommendations] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend or AI model for processing
-    console.log('User Preferences:', { budget, fuelType, familySize, usageType });
-    alert('Recommendations will be generated based on your preferences!');
+    
+    try {
+      const response = await axios.get('http://localhost:3000/api/recommend');
+      setRecommendations(response.data);
+    } catch (error) {
+      console.error('Error fetching recommendations:', error);
+    }
   }
 
   return (
@@ -65,6 +73,25 @@ const App = () => {
 
           <button type='submit' className='submit-btn'>Get Recommendations</button>
         </form>
+
+        {recommendations.length > 0 && (
+          <div className='recommendations'>
+            <h3>Recommended Cars:</h3>
+            {recommendations.map((car)=>(
+              <div key ={car.id} className='car-card'>
+                <img src={car.image} alt={car.name} className='car-image' />
+                <h4>{car.name}</h4>
+                <p>Price: ${car.price}</p>
+                <p>Fuel Type: {car.fuelType}</p>
+                <p>Family Size: {car.familySize}</p>
+                <p>Usage Type: {car.usageType}</p>
+                <p>Mileage: {car.mileage}</p>
+                <p>Safety: {car.safetyRatings}</p>
+              </div>
+            ))}
+            
+          </div>
+        )}
       </div>
     </div>
   );
