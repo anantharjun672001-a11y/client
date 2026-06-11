@@ -11,10 +11,11 @@ const App = () => {
 
   const [recommendations, setRecommendations] = useState([]);
   const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setLoading(true);
     try {
       const response = await axios.get('http://localhost:3000/api/recommend',{
         params: {
@@ -25,9 +26,11 @@ const App = () => {
         }
       });
       setRecommendations(response.data);
+      setLoading(false);
       setSearched(true);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
+      setLoading(false);
     }
   }
 
@@ -80,7 +83,7 @@ const App = () => {
             </select>
           </div>
 
-          <button type='submit' className='submit-btn'>Get Recommendations</button>
+          <button type='submit' className='submit-btn'>{loading ? 'Loading...' : 'Get Recommendations'}</button>
         </form>
 
         {
