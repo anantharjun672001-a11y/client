@@ -34,6 +34,15 @@ const App = () => {
     }
   }
 
+  const resetForm = () => {
+    setBudget('');
+    setFuelType('Petrol');
+    setFamilySize("4");
+    setUsageType('City');
+    setRecommendations([]);
+    setSearched(false);
+  };
+
   return (
     <div className='container'>
       <div className='form-card'>
@@ -84,6 +93,8 @@ const App = () => {
           </div>
 
           <button type='submit' className='submit-btn'>{loading ? 'Loading...' : 'Get Recommendations'}</button>
+
+          <button type='button' className='reset-btn' onClick={resetForm}>Reset</button>
         </form>
 
         {
